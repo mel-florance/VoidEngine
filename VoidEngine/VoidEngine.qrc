@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/shaders/basic.frag</file>
+        <file>res/shaders/basic.vert</file>
+        <file>res/icons/camera.png</file>
+        <file>res/icons/font.png</file>
+        <file>res/icons/lights.png</file>
+        <file>res/icons/material.png</file>
+        <file>res/icons/object.png</file>
+        <file>res/icons/particles.png</file>
+        <file>res/icons/physics.png</file>
+        <file>res/icons/primitives.png</file>
+        <file>res/icons/rendering.png</file>
+        <file>res/icons/scene.png</file>
+        <file>res/icons/texture.png</file>
+        <file>res/icons/world.png</file>
+    </qresource>
+</RCC>

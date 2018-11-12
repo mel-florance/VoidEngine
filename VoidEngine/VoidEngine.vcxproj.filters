@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{18d95b97-feaf-4a69-bf87-85bc134b1cc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{0767c6dc-0d2f-4294-a232-76c31c8b3cd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\graphics">
+      <UniqueIdentifier>{9a138e5c-6e68-489b-8482-ca5aa08c0ce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ui">
+      <UniqueIdentifier>{56f12c53-ec96-4fc2-ae0e-0ae6fc03daab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\projects">
+      <UniqueIdentifier>{ac75fcec-0771-49cd-a581-636c5783effb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\editor">
+      <UniqueIdentifier>{ed4efedf-50e3-4471-9807-8ce59e3c0f82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mesh">
+      <UniqueIdentifier>{b879c150-ba67-4611-b634-3dd25fa718d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rendering">
+      <UniqueIdentifier>{e8060b57-f71c-4cfb-a1e3-562a7cbcc8c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\editor\inspector">
+      <UniqueIdentifier>{d87c99a1-028b-4d11-bed3-68a6321badec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\editor\widgets">
+      <UniqueIdentifier>{4e14e3eb-84a6-415e-9a7c-f4c19efc1b14}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src/graphics/GLWidget.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src/core/VoidEngine.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src/projects/ProjectDialog.cpp">
+      <Filter>src\projects</Filter>
+    </ClCompile>
+    <ClCompile Include="src/main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/Outliner.cpp">
+      <Filter>src\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src/mesh/Mesh.cpp">
+      <Filter>src\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src/rendering/ForwardRenderer.cpp">
+      <Filter>src\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src/mesh/Vertex.cpp">
+      <Filter>src\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src/core/Util.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src/core/Transform.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/Inspector.cpp">
+      <Filter>src\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/AssetsManager.cpp">
+      <Filter>src\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/Console.cpp">
+      <Filter>src\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/Viewport.cpp">
+      <Filter>src\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/StatusBar.cpp">
+      <Filter>src\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/inspector/WorldSection.cpp">
+      <Filter>src\editor\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/inspector/PhysicsSection.cpp">
+      <Filter>src\editor\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/inspector/ParticlesSection.cpp">
+      <Filter>src\editor\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/inspector/LightsSection.cpp">
+      <Filter>src\editor\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/inspector/ObjectSection.cpp">
+      <Filter>src\editor\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/widgets/TransformWidget.cpp">
+      <Filter>src\editor\widgets</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="src/projects/ProjectDialog.h">
+      <Filter>src\projects</Filter>
+    </QtMoc>
+    <QtMoc Include="src/graphics/GLWidget.h">
+      <Filter>src\graphics</Filter>
+    </QtMoc>
+    <QtMoc Include="src/editor/AssetsManager.h">
+      <Filter>src\editor</Filter>
+    </QtMoc>
+    <QtMoc Include="src/editor/Viewport.h">
+      <Filter>src\editor</Filter>
+    </QtMoc>
+    <QtMoc Include="src/editor/StatusBar.h">
+      <Filter>src\editor</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="src/ui/VoidEngine.ui">
+      <Filter>src\ui</Filter>
+    </QtUic>
+    <QtUic Include="src/ui/ProjectDialog.ui">
+      <Filter>src\ui</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="VoidEngine.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="VoidEngine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src/mesh/Mesh.h">
+      <Filter>src\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src/rendering/ForwardRenderer.h">
+      <Filter>src\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src/mesh/Vertex.h">
+      <Filter>src\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src/core/Util.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src/core/Transform.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src/core/VoidEngine.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/Console.h">
+      <Filter>src\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/Inspector.h">
+      <Filter>src\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/Outliner.h">
+      <Filter>src\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/inspector/WorldSection.h">
+      <Filter>src\editor\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/inspector/LightsSection.h">
+      <Filter>src\editor\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/inspector/ObjectSection.h">
+      <Filter>src\editor\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/inspector/ParticlesSection.h">
+      <Filter>src\editor\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/inspector/PhysicsSection.h">
+      <Filter>src\editor\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/widgets/TransformWidget.h">
+      <Filter>src\editor\widgets</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
