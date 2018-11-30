@@ -2,102 +2,165 @@
 #include <QDebug>
 #include <QGLContext>
 #include <QString>
+#include <QImage>
 #include <QOpenGLShaderProgram>
 #include "../mesh/Vertex.h"
 #include "../core/Util.h"
+#include "../editor/Outliner.h"
+#include "../core/VoidEngine.h"
+#include "../texturing/Texture.h"
+#include "../core/VoidEngine.h"
 #include <QOpenGLFunctions>
 
-static const Vertex sg_vertexes[3] = {
-	Vertex(QVector3D(-0.5f,  -0.5f, 0.0f), QVector3D(0.0f, 0.0f, 1.0f)),
-	Vertex(QVector3D(0.5f, -0.5f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f)),
-	Vertex(QVector3D(0.0f, 0.5f, 0.0f), QVector3D(1.0f, 0.0f, 0.0f))
-};
-
-static const GLushort sg_indices[3] = { 0, 1, 2 };
 
 GLWidget::GLWidget(QWidget* parent) : QOpenGLWidget(parent)
 {
+	this->angle = 0.f;
+	this->fps = 0.f;
+	this->alpha = 0;
 	this->mParent = parent;
-	m_ibo = QOpenGLBuffer(QOpenGLBuffer::IndexBuffer);
-	m_vbo = QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
-	m_transform.translate(0.0f, 0.0f, -5.0f);
-	//QObject::connect(this, &QOpenGLWidget::frameSwapped, this, &GLWidget::paintGL);
+	this->tab = Q_NULLPTR;
+	this->frameCount = 0;
+	this->default_scene = QSharedPointer<Scene>::create();
+	this->gameLoop = new GameLoop();
+	QThread* gameLoopThread = new QThread();
 
-	QTimer *timer = new QTimer(this);
-	connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-	//timer->setInterval(0);
-	timer->start(16);
+	QObject::connect(gameLoopThread, &QThread::started, this->gameLoop, &GameLoop::start);
+	QObject::connect(this->gameLoop, SIGNAL(updated(float, float)), this, SLOT(updated(float, float)));
+	QObject::connect(this->gameLoop, SIGNAL(rendered()), this, SLOT(rendered()));
+
+	this->gameLoop->moveToThread(gameLoopThread);
+	gameLoopThread->start();
+
+	QSharedPointer<Light> light = QSharedPointer<Light>::create();
+	float power = 2000.0f;
+	light->setColor(QVector3D(80.0f * power, 80.0f * power, 80.0f * power));
+	light->setPosition(QVector3D(200.0f, -50.0f, 0.0f));
+
+	/*QSharedPointer<Light> light2 = QSharedPointer<Light>::create();
+	light2->setColor(QVector3D(100000.0f, 200000.0f, 200000.0f));
+	light2->setPosition(QVector3D(0.0f, -300.0f, -0.0f));
+*/
+	this->default_scene->addLight(light);
+	//this->default_scene->addLight(light2);
+
+	VoidEngine* ngine = (VoidEngine*)this->mParent;
+	ngine->getSceneManager()->addScene(this->default_scene);
+	ngine->getSceneManager()->setActiveScene(this->default_scene);
+
+	//this->gameLoop->start();
+}
+
+void GLWidget::rendered()
+{
+	this->update();
+}
+
+void GLWidget::updated(float dt, float fps)
+{
+	this->angle -= 90.0f * dt;
+	this->default_scene->update(dt);
+	this->delta = dt;
+	this->fps = fps;
 }
 
 void GLWidget::initializeGL()
 {
 	initializeOpenGLFunctions();
 
-	glEnable(GL_DEPTH_TEST);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	this->shader = QSharedPointer<Shader>::create();
+	this->shader->getProgram()->link();
 
-	m_shader = new QOpenGLShaderProgram();
-	m_shader->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/res/shaders/basic.vert");
-	m_shader->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/res/shaders/basic.frag");
-	m_shader->link();
-	m_shader->bind();
+	QString texDir = "C:/Users/overk/VoidEngineProjects/Survival/resources/textures/";
+	QImage albedo = QImage(texDir + "pickup_low_Material_BaseColor.png");
+	QImage normal = QImage(texDir + "pickup_low_Material_Normal.png");
+	QImage mra = QImage(texDir + "pickup_low_Material_OcclusionRoughnessMetallic.png");
+	//QImage roughness = QImage(texDir + "Can_roughness.jpg");
+	//QImage metallic = QImage(texDir + "Can_metallic.jpg");
+	QSharedPointer<Texture> a_texture = QSharedPointer<Texture>::create(albedo.mirrored());
+	QSharedPointer<Texture> n_texture = QSharedPointer<Texture>::create(normal.mirrored());
+	QSharedPointer<Texture> m_texture = QSharedPointer<Texture>::create(mra.mirrored());
+	//QSharedPointer<Texture> r_texture = QSharedPointer<Texture>::create(roughness);
+	//QSharedPointer<Texture> ao_texture = QSharedPointer<Texture>::create(ao);
 
-	u_modelToWorld = m_shader->uniformLocation("modelToWorld");
-	u_worldToView = m_shader->uniformLocation("worldToView");
+	this->defaultMat = new DefaultMaterial("default", this->shader);
+	this->defaultMat->setTexture(DefaultMaterial::ALBEDO, a_texture);
+	this->defaultMat->setTexture(DefaultMaterial::NORMAL, n_texture);
+	this->defaultMat->setTexture(DefaultMaterial::MRA, m_texture);
+	//this->defaultMat->setTexture(DefaultMaterial::METALLIC, m_texture);
+	//this->defaultMat->setTexture(DefaultMaterial::ROUGHNESS, r_texture);
+	//this->defaultMat->setTexture(DefaultMaterial::AO, ao_texture);
 
-	m_vbo.create();
-	m_vbo.bind();
-	m_vbo.setUsagePattern(QOpenGLBuffer::StaticDraw);
-	m_vbo.allocate(sg_vertexes, sizeof(sg_vertexes));
+	//this->defaultMat->setAlbedo(QVector3D(0.8f, 0.8f, 0.8f));
+	//this->defaultMat->setMetallic(0.1f);
+	//this->defaultMat->setRoughness(0.4f);
+	//this->defaultMat->setAo(1.0f);
 
-	m_ibo.create();
-	m_ibo.bind();
-	m_ibo.setUsagePattern(QOpenGLBuffer::StaticDraw);
-	m_ibo.allocate(sg_indices, 3 * sizeof(GLushort));
-	m_ibo.release();
+	VoidEngine* ngine = (VoidEngine*)this->mParent;
+	MeshLoader::setShader(this->shader);
 
-	m_vao.create();
-	m_vao.bind();
-
-	m_shader->enableAttributeArray(0);
-	m_shader->enableAttributeArray(1);
-	m_shader->setAttributeBuffer(0, GL_FLOAT, Vertex::positionOffset(), Vertex::PositionTupleSize, Vertex::stride());
-	m_shader->setAttributeBuffer(1, GL_FLOAT, Vertex::colorOffset(), Vertex::ColorTupleSize, Vertex::stride());
-
-
-	m_vao.release();
-
-	m_vbo.release();
-	m_shader->release();
+	this->renderer = QSharedPointer<ForwardRenderer>::create((QMainWindow*)this->mParent, this->shader);
+	//this->renderer->prepare();
 
 	tab = this->mParent->findChild<QTabWidget*>("tabViewport");
 	glViewport(0, 0, tab->width(), tab->height());
-	frameTime.start();
 }
 
 void GLWidget::paintGL()
 {
 	glViewport(0, 0, tab->width(), tab->height());
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_CULL_FACE);
 
 	++frameCount;
-
-	if (this->frameTime.elapsed() >= 1000)
-	{
-		QFont font("Consolas", 10);
-		double fps = this->frameCount / ((double)this->frameTime.elapsed() / 1000.0);
-		this->renderText(10.0, 10.0, "FPS: " + QString::number(fps), font);
-	}
-
-	m_projection.setToIdentity();
-	m_projection.perspective(60.0f, tab->width() / float(tab->height()), 0.01f, 1000.0f);
-
-	m_transform.rotate(1, QVector3D(0.4f, 0.3f, 0.3f));
-
 	draw();
 }
 
-void GLWidget::renderText(double x, double y, const QString& str, const QFont& font) 
+void GLWidget::drawNode(Node* node)
+{
+	//node->transform->scale(QVector3D(10.0f, 10.0f, 10.0f));
+	//node->transform->rotate(this->angle, QVector3D(0.0f, 1.0f, 0.0f));
+	//qDebug() << node->transform->translation().x();
+	this->shader->getProgram()->setUniformValue("mTransform", node->transform->toMatrix());
+
+	for (auto mesh : node->meshes)
+	{
+		if (mesh != nullptr)
+		{
+			mesh->setupBuffers(this->shader->getProgram());
+			mesh->draw();
+		}
+	}
+
+	for (int i = 0; i < node->nodes.size(); i++)
+		this->drawNode(node->nodes[i]);
+}
+
+void GLWidget::draw()
+{
+	VoidEngine* ngine = (VoidEngine*)this->mParent;
+
+	this->shader->getProgram()->bind();
+	this->defaultMat->bindUniforms(ngine->getViewport()->getCamera(), this->default_scene->getLights());
+
+	for (auto node : this->default_scene->getNodes())
+		this->drawNode(node);
+
+	this->shader->getProgram()->release();
+	this->renderText(10.0, 10.0, "FPS: " + QString::fromStdString(this->toDecimal(this->fps, 2)), QFont("consolas", 11));
+}
+
+std::string GLWidget::toDecimal(float counts, unsigned int precision)
+{
+	std::ostringstream ss;
+	ss.precision(precision);
+	ss << std::fixed << counts;
+	return ss.str();
+}
+
+void GLWidget::renderText(double x, double y, const QString& str, const QFont& font)
 {
 	QPainter painter(this);
 	painter.setPen(Qt::white);
@@ -105,26 +168,13 @@ void GLWidget::renderText(double x, double y, const QString& str, const QFont& f
 	painter.drawText(x, y, width(), height(), Qt::AlignLeft, str);
 }
 
-void GLWidget::draw()
-{
-	m_shader->bind();
-	m_shader->setUniformValue(u_worldToView, m_projection);
-	m_shader->setUniformValue(u_modelToWorld, m_transform.toMatrix());
-	m_vao.bind();
-	m_ibo.bind();	
-
-	//glDrawArrays(GL_TRIANGLES, 0, sizeof(sg_vertexes) / sizeof(sg_vertexes[0]));
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
-
-	m_vao.release();
-	m_ibo.release();
-	m_shader->release();
-}
-
 void GLWidget::resizeGL(int width, int height)
 {
-
-
+	VoidEngine* ngine = (VoidEngine*)this->mParent;
+	Camera* cam = ngine->getViewport()->getCamera();
+	QMatrix4x4 proj;
+	proj.perspective(cam->getFov(), (float)width / height, cam->getNearPlane(), cam->getFarPlane());
+	cam->setProjection(proj);
 }
 
 void GLWidget::mousePressEvent(QMouseEvent* event)
@@ -136,7 +186,6 @@ void GLWidget::mouseMoveEvent(QMouseEvent* event)
 {
 	lastMousePos = event->pos();
 }
-
 
 void GLWidget::getInfos()
 {

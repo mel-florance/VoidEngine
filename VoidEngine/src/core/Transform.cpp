@@ -30,16 +30,70 @@ void Transform::setTranslation(const QVector3D &t)
 	m_translation = t;
 }
 
+void Transform::setTranslationX(float x)
+{ 
+	m_dirty = true; 
+	m_translation.setX(x); 
+}
+
+void Transform::setTranslationY(float y)
+{ 
+	m_dirty = true;
+	m_translation.setY(y);  
+}
+
+void Transform::setTranslationZ(float z)
+{ 
+	m_dirty = true;
+	m_translation.setZ(z); 
+}
+
 void Transform::setScale(const QVector3D &s)
 {
 	m_dirty = true;
 	m_scale = s;
 }
 
+void Transform::setScaleX(float x)
+{ 
+	m_dirty = true;
+	m_scale.setX(x);
+}
+
+void Transform::setScaleY(float y)
+{ 
+	m_dirty = true;
+	m_scale.setY(y);
+}
+
+void Transform::setScaleZ(float z)
+{ 
+	m_dirty = true;
+	m_scale.setZ(z);
+}
+
 void Transform::setRotation(const QQuaternion &r)
 {
 	m_dirty = true;
 	m_rotation = r;
+}
+
+void Transform::setRotationX(float x) 
+{
+	m_dirty = true;
+	setRotation(QQuaternion::fromAxisAndAngle(QVector3D(1.0f, 0.0f, 0.0f), x));
+}
+
+void Transform::setRotationY(float y) 
+{
+	m_dirty = true;
+	setRotation(QQuaternion::fromAxisAndAngle(QVector3D(0.0f, 1.0f, 0.0f), y));
+}
+
+void Transform::setRotationZ(float z)
+{
+	m_dirty = true;
+	setRotation(QQuaternion::fromAxisAndAngle(QVector3D(0.0f, 0.0f, 1.0f), z));
 }
 
 const QMatrix4x4 &Transform::toMatrix()
@@ -52,6 +106,7 @@ const QMatrix4x4 &Transform::toMatrix()
 		m_world.rotate(m_rotation);
 		m_world.scale(m_scale);
 	}
+
 	return m_world;
 }
 

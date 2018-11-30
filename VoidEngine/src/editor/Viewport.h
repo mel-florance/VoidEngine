@@ -2,6 +2,7 @@
 
 #include <QtWidgets>
 #include "../graphics/GLWidget.h"
+#include "../cameras/FPSCamera.h"
 
 class Viewport : public QWidget
 {
@@ -13,9 +14,12 @@ public:
 
 	QTabWidget* getTabs() { return this->tabs.get(); }
 	GLWidget* getGLWidget() { return this->glWidget.get();  }
+	QWidget* getParent() { return this->parent; }
+	FPSCamera* getCamera() { return this->camera; }
 
 private:
 	std::unique_ptr<QTabWidget> tabs;
 	QWidget* parent;
-	std::unique_ptr<GLWidget> glWidget;
+	std::shared_ptr<GLWidget> glWidget;
+	FPSCamera* camera;
 };

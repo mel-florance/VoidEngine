@@ -1,27 +1,52 @@
 #pragma once
 
-#include <QtWidgets>
 
-class AssetsManager : public QObject
+#include <QSharedPointer>
+#include <QVariant>
+#include <QtWidgets>
+#include <QFile>
+
+#include "../core/MeshLoader.h"
+
+class AssetsManager : public QWidget
 {
 	Q_OBJECT
 
+public slots:
+	void modelLoaded(Node* root);
+	void modelProgress(float value);
+	void loadingFinished();
+
 public:
-	AssetsManager(QObject* parent);
+	AssetsManager(QWidget* parent);
 	~AssetsManager();
 
-	void onTreeViewClicked(QModelIndex index);
 	QTabWidget* getTabs() { return this->tabs.get(); }
 	QTreeView* getTree() { return this->tree.get(); }
+	QString& getRoot() { return this->root; }
+	inline MeshLoader* getMeshLoader() { return this->meshLoader; }
+
+	void addChild(QTreeWidgetItem* parent, Node* child);
+	inline bool moveFile(const QString& source, const QString& dest) { return QFile::copy(source, dest); }
+
+public slots:
+	void onTreeViewClicked(QModelIndex index);
+	void fileListClicked(QModelIndex index);
 
 private:
 	QString root;
-	QObject* parent;
+	QWidget* parent;
+	QTreeWidgetItem* sceneTree;
+	QThread* thread;
+
+	MeshLoader* meshLoader;
+	QProgressDialog* progressDialog;
+
 	std::unique_ptr<QTabWidget> tabs;
 	std::unique_ptr<QTreeView> tree;
 	std::unique_ptr<QSplitter> splitter;
 
 	std::unique_ptr<QFileSystemModel> dirModel;
-	std::unique_ptr<QFileSystemModel> fileModel;
-	std::unique_ptr<QTreeView> fileList;
+	QSharedPointer<QFileSystemModel> fileModel;
+	QSharedPointer<QTreeView> fileList;
 };

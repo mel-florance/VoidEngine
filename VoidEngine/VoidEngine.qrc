@@ -1,8 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/shaders/basic.frag</file>
-        <file>res/shaders/basic.vert</file>
-        <file>res/icons/camera.png</file>
         <file>res/icons/font.png</file>
         <file>res/icons/lights.png</file>
         <file>res/icons/material.png</file>
@@ -14,5 +11,10 @@
         <file>res/icons/scene.png</file>
         <file>res/icons/texture.png</file>
         <file>res/icons/world.png</file>
+        <file>res/icons/camera.png</file>
+        <file>res/shaders/pbr.fs</file>
+        <file>res/shaders/pbr.vs</file>
+        <file>res/shaders/phong.fs</file>
+        <file>res/shaders/phong.vs</file>
     </qresource>
 </RCC>

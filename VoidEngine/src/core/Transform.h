@@ -24,12 +24,22 @@ public:
 
 	void setTranslation(const QVector3D &t);
 	void setTranslation(float x, float y, float z);
+	void setTranslationX(float x);
+	void setTranslationY(float y);
+	void setTranslationZ(float z);
 	void setScale(const QVector3D &s);
 	void setScale(float x, float y, float z);
 	void setScale(float k);
+	void setScaleX(float x);
+	void setScaleY(float y);
+	void setScaleZ(float z);
 	void setRotation(const QQuaternion &r);
 	void setRotation(float angle, const QVector3D &axis);
 	void setRotation(float angle, float ax, float ay, float az);
+	void setRotationX(float x);
+	void setRotationY(float y);
+	void setRotationZ(float z);
+	inline void setWorld(QMatrix4x4 world) { m_world = world; }
 
 	const QVector3D& translation() const;
 	const QVector3D& scale() const;

@@ -50,6 +50,24 @@
     <Filter Include="src\editor\widgets">
       <UniqueIdentifier>{4e14e3eb-84a6-415e-9a7c-f4c19efc1b14}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\cameras">
+      <UniqueIdentifier>{09441b51-69f1-4515-bc1d-e13110b47747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers">
+      <UniqueIdentifier>{6cd842fa-817f-444f-919b-db0d1560f262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\lighting">
+      <UniqueIdentifier>{4ba5f88b-9543-4af0-9cda-724f21a33de4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\materials">
+      <UniqueIdentifier>{d08978fd-86a6-4347-8096-69587b50b186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\texturing">
+      <UniqueIdentifier>{5049031a-e0ab-455c-ac6f-9b9f57f8d162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene">
+      <UniqueIdentifier>{eae520ca-7ca3-4364-aaa7-0caed6a355f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src/graphics/GLWidget.cpp">
@@ -115,6 +133,81 @@
     <ClCompile Include="src/editor/widgets/TransformWidget.cpp">
       <Filter>src\editor\widgets</Filter>
     </ClCompile>
+    <ClCompile Include="src/core/MeshLoader.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/widgets/SelectionWidget.cpp">
+      <Filter>src\editor\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="src/rendering/Shader.cpp">
+      <Filter>src\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/inspector/CameraSection.cpp">
+      <Filter>src\editor\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/inspector/MaterialSection.cpp">
+      <Filter>src\editor\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/inspector/SceneSection.cpp">
+      <Filter>src\editor\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="src/editor/inspector/TextureSection.cpp">
+      <Filter>src\editor\inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="src/cameras/Camera.cpp">
+      <Filter>src\cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="src/cameras/FPSCamera.cpp">
+      <Filter>src\cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="src/managers/InputsManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src/core/GameLoop.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src/lighting/Light.cpp">
+      <Filter>src\lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="src/materials/Material.cpp">
+      <Filter>src\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="src/materials/DefaultMaterial.cpp">
+      <Filter>src\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="src/texturing/Texture.cpp">
+      <Filter>src\texturing</Filter>
+    </ClCompile>
+    <ClCompile Include="src/managers/TexturesManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src/managers/ImagesManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src/core/FrameBuffer.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src/core/Clock.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src/core/Profiler.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src/core/Timer.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src/scene/Scene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src/scene/Node.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src/managers/SceneManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src/managers/MaterialsManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src/projects/ProjectDialog.h">
@@ -131,6 +224,36 @@
     </QtMoc>
     <QtMoc Include="src/editor/StatusBar.h">
       <Filter>src\editor</Filter>
+    </QtMoc>
+    <QtMoc Include="src/core/MeshLoader.h">
+      <Filter>src\core</Filter>
+    </QtMoc>
+    <QtMoc Include="src/core/VoidEngine.h">
+      <Filter>src\core</Filter>
+    </QtMoc>
+    <QtMoc Include="src/editor/inspector/LightsSection.h">
+      <Filter>src\editor\inspector</Filter>
+    </QtMoc>
+    <QtMoc Include="src/editor/widgets/SelectionWidget.h">
+      <Filter>src\editor\widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="src/cameras/Camera.h">
+      <Filter>src\cameras</Filter>
+    </QtMoc>
+    <QtMoc Include="src/cameras/FPSCamera.h">
+      <Filter>src\cameras</Filter>
+    </QtMoc>
+    <QtMoc Include="src/managers/InputsManager.h">
+      <Filter>src\managers</Filter>
+    </QtMoc>
+    <QtMoc Include="src/core/GameLoop.h">
+      <Filter>src\core</Filter>
+    </QtMoc>
+    <QtMoc Include="src/lighting/Light.h">
+      <Filter>src\lighting</Filter>
+    </QtMoc>
+    <QtMoc Include="src/editor/widgets/TransformWidget.h">
+      <Filter>src\editor\widgets</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -153,9 +276,6 @@
     <ClInclude Include="src/mesh/Mesh.h">
       <Filter>src\mesh</Filter>
     </ClInclude>
-    <ClInclude Include="src/rendering/ForwardRenderer.h">
-      <Filter>src\rendering</Filter>
-    </ClInclude>
     <ClInclude Include="src/mesh/Vertex.h">
       <Filter>src\mesh</Filter>
     </ClInclude>
@@ -163,9 +283,6 @@
       <Filter>src\core</Filter>
     </ClInclude>
     <ClInclude Include="src/core/Transform.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src/core/VoidEngine.h">
       <Filter>src\core</Filter>
     </ClInclude>
     <ClInclude Include="src/editor/Console.h">
@@ -180,9 +297,6 @@
     <ClInclude Include="src/editor/inspector/WorldSection.h">
       <Filter>src\editor\inspector</Filter>
     </ClInclude>
-    <ClInclude Include="src/editor/inspector/LightsSection.h">
-      <Filter>src\editor\inspector</Filter>
-    </ClInclude>
     <ClInclude Include="src/editor/inspector/ObjectSection.h">
       <Filter>src\editor\inspector</Filter>
     </ClInclude>
@@ -192,8 +306,69 @@
     <ClInclude Include="src/editor/inspector/PhysicsSection.h">
       <Filter>src\editor\inspector</Filter>
     </ClInclude>
-    <ClInclude Include="src/editor/widgets/TransformWidget.h">
-      <Filter>src\editor\widgets</Filter>
+    <ClInclude Include="src/core/ECS.h">
+      <Filter>src\core</Filter>
     </ClInclude>
+    <ClInclude Include="src/rendering/Shader.h">
+      <Filter>src\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/inspector/CameraSection.h">
+      <Filter>src\editor\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/inspector/MaterialSection.h">
+      <Filter>src\editor\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/inspector/SceneSection.h">
+      <Filter>src\editor\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src/editor/inspector/TextureSection.h">
+      <Filter>src\editor\inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="src/rendering/ForwardRenderer.h">
+      <Filter>src\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src/materials/Material.h">
+      <Filter>src\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="src/materials/DefaultMaterial.h">
+      <Filter>src\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="src/texturing/Texture.h">
+      <Filter>src\texturing</Filter>
+    </ClInclude>
+    <ClInclude Include="src/managers/TexturesManager.h">
+      <Filter>src\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src/managers/ImagesManager.h">
+      <Filter>src\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src/core/FrameBuffer.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src/core/Profiler.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src/core/Clock.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src/core/Timer.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src/scene/Scene.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src/scene/Node.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src/managers/SceneManager.h">
+      <Filter>src\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src/managers/MaterialsManager.h">
+      <Filter>src\managers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

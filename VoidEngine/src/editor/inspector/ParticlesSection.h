@@ -14,4 +14,3 @@ public:
 private:
 	std::unique_ptr<QGroupBox> group;
 };
-
